@@ -1,11 +1,9 @@
-# [altbet](https://altbet.io) - The revolutionary mutual betting platform with provably fair odds
-
 Shell script to install a Altbet Masternode on a Linux server running Ubuntu 16.04. Use it on your own risk.
 ***
 
-## VPS installation for version **1.0.1.2**
+## VPS installation for version **zero**
 ```
-wget -N https://raw.githubusercontent.com/altbet/mn-install/master/mn-install.sh
+wget -N https://raw.githubusercontent.com/SimpleWasTaken/mn-install/master/mn-install.sh
 bash mn-install.sh
 ```
 ***
@@ -58,15 +56,3 @@ systemctl stop altbet #To stop altbet service
 systemctl is-enabled altbet #To check if altbet service is enabled on boot
 ```
 ***
-
-## Masternode update:
-In order to update your Altbet Masternode from version 1.0.1.1 to version 1.0.1.2, please run the following commands:
-```
-wget -N https://raw.githubusercontent.com/altbet/mn-install/master/update.sh
-bash update.sh
-```
-Open your desktop wallet and start the node from there.
-***
-
-## Credits
-https://github.com/zoldur
