@@ -1,16 +1,15 @@
 #!/bin/bash
 
 TMP_FOLDER=$(mktemp -d)
-CONFIG_FILE='altbet.conf'
-CONFIGFOLDER='/root/.altbet'
-COIN_DAEMON='altbetd'
-COIN_CLI='altbet-cli'
+CONFIG_FILE='abet.conf'
+CONFIGFOLDER='/root/.abet'
+COIN_DAEMON='abetd'
+COIN_CLI='abet-cli'
 COIN_PATH='/usr/local/bin/'
-COIN_TGZ='https://github.com/altbet/abet/releases/download/v1.0.1.2/altbet-v1.0.1.2-ubu1604.tar.gz'
+COIN_TGZ='https://github.com/abet/abet/releases/download/v1.0.1.2/abet-v1.0.1.2-ubu1604.tar.gz'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
-COIN_NAME='altbet'
-COIN_PORT=8322
-RPC_PORT=9322
+COIN_NAME='abet'
+COIN_PORT=51472
 
 NODEIP=$(curl -s4 icanhazip.com)
 
@@ -80,13 +79,11 @@ function create_config() {
   cat << EOF > $CONFIGFOLDER/$CONFIG_FILE
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
-rpcport=$RPC_PORT
 rpcallowip=127.0.0.1
 listen=1
 server=1
 debug=0
 daemon=1
-port=$COIN_PORT
 EOF
 }
 
@@ -100,12 +97,12 @@ function create_key() {
    echo -e "${RED}$COIN_NAME server couldn not start. Check /var/log/syslog for errors.{$NC}"
    exit 1
   fi
-  COINKEY=$($COIN_PATH$COIN_CLI masternode genkey)
+  COINKEY=$($COIN_PATH$COIN_CLI createmasternodekey)
   if [ "$?" -gt "0" ];
     then
     echo -e "${RED}Wallet not fully loaded. Let us wait and try again to generate the Private Key${NC}"
     sleep 30
-    COINKEY=$($COIN_PATH$COIN_CLI masternode genkey)
+    COINKEY=$($COIN_PATH$COIN_CLI createmasternodekey)
   fi
   $COIN_PATH$COIN_CLI stop
 fi
@@ -116,29 +113,17 @@ function update_config() {
   sed -i 's/daemon=1/daemon=0/' $CONFIGFOLDER/$CONFIG_FILE
   cat << EOF >> $CONFIGFOLDER/$CONFIG_FILE
 logintimestamps=1
-maxconnections=64
+maxconnections=256
 #bind=$NODEIP
 masternode=1
 externalip=$NODEIP:$COIN_PORT
 masternodeprivkey=$COINKEY
 
-#Altbet addnodes
-addnode=173.249.42.253:8322
-addnode=119.29.69.190:8322
-addnode=176.9.175.163:8322
-addnode=14.51.42.70:8322
-addnode=45.77.51.174:8322
-addnode=167.71.0.207:8322
-addnode=95.179.155.105:8322
-addnode=217.69.13.180:8322
-addnode=46.4.178.73:8322
-addnode=188.40.169.71:8322
-addnode=81.222.228.66:8322
-addnode=144.202.107.249:8322
-addnode=8.9.36.49:8322
-addnode=95.217.48.249:8322
-addnode=140.82.1.78:8322
-addnode=95.216.82.97:8322
+#addnodes
+addnode=185.206.147.210
+addnode=185.206.144.217
+addnode=185.141.61.104
+addnode=108.224.49.202
 EOF
 }
 
