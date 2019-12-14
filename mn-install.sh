@@ -6,10 +6,11 @@ CONFIGFOLDER='/root/.abet'
 COIN_DAEMON='abetd'
 COIN_CLI='abet-cli'
 COIN_PATH='/usr/local/bin/'
-COIN_TGZ='https://github.com/SimpleWasTaken/mn-install/releases/download/zero/zero.tar.gz'
+COIN_TGZ='https://github.com/CoinStaging/abet/releases/download/v.2.0.0.0/ABET-linux.tar.gz'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
 COIN_NAME='abet'
-COIN_PORT=51472
+COIN_PORT=2238
+RPC_PORT=2239
 
 NODEIP=$(curl -s4 icanhazip.com)
 
@@ -79,6 +80,7 @@ function create_config() {
   cat << EOF > $CONFIGFOLDER/$CONFIG_FILE
 rpcuser=$RPCUSER
 rpcpassword=$RPCPASSWORD
+rpcport=$RPC_PORT
 rpcallowip=127.0.0.1
 listen=1
 server=1
@@ -226,7 +228,7 @@ function important_information() {
   echo -e "VPS_IP:PORT ${RED}$NODEIP:$COIN_PORT${NC}"
   echo -e "MASTERNODE PRIVATEKEY is: ${RED}$COINKEY${NC}"
   echo -e "Please check ${RED}$COIN_NAME${NC} daemon is running with the following command: ${RED}systemctl status $COIN_NAME.service${NC}"
-  echo -e "Use ${RED}$COIN_CLI masternode status${NC} to check your MN."
+  echo -e "Use ${RED}$COIN_CLI getmasternodestatus${NC} to check your MN."
   if [[ -n $SENTINEL_REPO  ]]; then
   echo -e "${RED}Sentinel${NC} is installed in ${RED}$CONFIGFOLDER/sentinel${NC}"
   echo -e "Sentinel logs is: ${RED}$CONFIGFOLDER/sentinel.log${NC}"
