@@ -10,7 +10,7 @@ COIN_TGZ='https://github.com/CoinStaging/abet/releases/download/v.2.0.0.0/ABET-l
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
 COIN_NAME='abet'
 COIN_PORT=2238
-RPC_PORT=2239
+RPC_PORT=9322
 
 NODEIP=$(curl -s4 icanhazip.com)
 
