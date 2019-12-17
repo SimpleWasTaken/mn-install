@@ -9,7 +9,7 @@ COIN_PATH='/usr/local/bin/'
 COIN_TGZ='https://github.com/CoinStaging/abet/releases/download/v.2.0.0.0/ABET-linux.tar.gz'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
 COIN_NAME='abet'
-COIN_PORT=2238
+COIN_PORT=8322
 RPC_PORT=9322
 
 NODEIP=$(curl -s4 icanhazip.com)
@@ -125,7 +125,10 @@ masternodeprivkey=$COINKEY
 addnode=185.206.147.210
 addnode=185.206.144.217
 addnode=185.141.61.104
+addnode=63.209.32.202
+addnode=173.199.118.20
 addnode=108.224.49.202
+addnode=144.202.2.218
 EOF
 }
 
@@ -239,7 +242,6 @@ function important_information() {
 function setup_node() {
   get_ip
   create_config
-  sync_node
   create_key
   update_config
   enable_firewall
