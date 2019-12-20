@@ -14,7 +14,6 @@ RPC_PORT=9322
 
 NODEIP=$(curl -s4 icanhazip.com)
 
-
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
@@ -29,7 +28,6 @@ function download_node() {
   rm -rf $TMP_FOLDER >/dev/null 2>&1
   clear
 }
-
 
 function configure_systemd() {
   cat << EOF > /etc/systemd/system/$COIN_NAME.service
@@ -71,7 +69,6 @@ EOF
     exit 1
   fi
 }
-
 
 function create_config() {
   mkdir $CONFIGFOLDER >/dev/null 2>&1
@@ -122,16 +119,15 @@ externalip=$NODEIP:$COIN_PORT
 masternodeprivkey=$COINKEY
 
 #addnodes
-addnode=185.206.147.210
-addnode=185.206.144.217
-addnode=185.141.61.104
-addnode=63.209.32.202
-addnode=173.199.118.20
-addnode=108.224.49.202
-addnode=144.202.2.218
+addnode=185.206.147.210:$COIN_PORT
+addnode=185.206.144.217:$COIN_PORT
+addnode=185.141.61.104:$COIN_PORT
+addnode=63.209.32.202:$COIN_PORT
+addnode=173.199.118.20:$COIN_PORT
+addnode=108.224.49.202:$COIN_PORT
+addnode=144.202.2.218:$COIN_PORT
 EOF
 }
-
 
 function enable_firewall() {
   echo -e "Installing and setting up firewall to allow ingress on port ${GREEN}$COIN_PORT${NC}"
@@ -141,7 +137,6 @@ function enable_firewall() {
   ufw default allow outgoing >/dev/null 2>&1
   echo "y" | ufw enable >/dev/null 2>&1
 }
-
 
 function get_ip() {
   declare -a NODE_IPS
@@ -166,7 +161,6 @@ function get_ip() {
   fi
 }
 
-
 function compile_error() {
 if [ "$?" -gt "0" ];
  then
@@ -174,7 +168,6 @@ if [ "$?" -gt "0" ];
   exit 1
 fi
 }
-
 
 function checks() {
 if [[ $(lsb_release -d) != *16.04* ]]; then
@@ -248,7 +241,6 @@ function setup_node() {
   important_information
   configure_systemd
 }
-
 
 ##### Main #####
 clear
